@@ -1,0 +1,71 @@
+extends layout
+
+block body
+  #leftSidebar.sidebar.sidebar-left(toggleable, parent-active-class='sidebar-left-in')
+    .container(overlay="changename")
+      .row.changename
+        .head.clear.clearfix
+          .avatar
+            img(ng-src="http://www.avatarpro.biz/avatar/{{current_username.clid}}?s=300", src="img/profile.png")
+          .metadata.pull-left
+            | Your name
+            span.name {{name}}
+            span.score {{score | number:2}}
+        .form
+          form(ng-submit='changeName()')
+            input(ng-model='newName', placeholder='Enter a new name')
+            input.btn.btn-success(type='submit', value='CHANGE', toggle="off", bubble, target="changename")
+          input.cancel(type='button', value="Cancel", target="changename", toggle="off")
+
+    .scrollable
+      .scrollable-content
+        ul.users.nav.nav-list.list-group
+          li.list-group-item(ng-repeat="user in users | orderBy:'score':true")
+            a.user-link(ng-click="mention(user)")
+              .avatar.pull-left
+                img(ng-src="http://www.avatarpro.biz/avatar/{{user.clid}}?s=100", src="img/profile.png")
+              .media-body
+                span.score {{user.score | number:0}}
+                | {{user.name}}
+
+  #rightSidebar.sidebar.sidebar-right(toggleable, parent-active-class='sidebar-right-in')
+    img(src="img/unistrokes.gif")
+    .row-fluid.hide
+      .well.message-spot
+        p(ng-repeat='message in messages',
+          ng-class='message.me',
+          class='') {{message.user}}: {{message.text}}
+
+      .navbar.navbar-inverse.navbar-fixed-bottom.bar-submit-message.hide
+        .navbar-inner
+          .container
+            form(ng-submit='sendMessage()',class='well form-search form-send-message')
+              input(ng-model='message',class='span11 input-message', placeholder='Message')
+              input(type='submit', value='Send', class='btn btn-success', style='margin-left: 10px;margin-top: 0')
+
+  .app(ng-controller="GesturesCtrl")
+    .navbar.navbar-app.navbar-absolute-top(ng-swipe-right="swipedr($event)", ng-swipe-left="swipedl($event)")
+      .navbar-brand.navbar-brand-center
+        span
+          | Lightning
+          i.fa.fa-flash
+          | Gestures
+      .btn-group.pull-left
+        .btn.btn-navbar.sidebar-toggle(ng-click="toggle('leftSidebar')")
+          i.fa.fa-sort-amount-desc.first
+          | Score
+      .btn-group.pull-right
+        .btn.btn-navbar(ng-click="toggle('rightSidebar')")
+          | Cheat-kit
+          i.fa.fa-medkit.last
+    .navbar.navbar-app.navbar-absolute-bottom
+      .section.container-fluid
+        .pull-left
+          a.btn.btn-default(href="#changename", toggle="on") Profile
+        .session
+          - jade_duration = data.duration
+          input.dial.hide#timer(type="text" data-min="0", data-max="#{jade_duration}", data-displayInput="false", data-width="20", data-height="20", data-readOnly="true", data-fgColor="#2770bd" data-rotation="acw", dial)
+          p#sessionname {{currentDrawing}}
+
+    .app-body
+      canvas#canvas(draw, resizable)

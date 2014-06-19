@@ -1,0 +1,11 @@
+.hide {
+  display: none; }
+
+.active {
+  color: #f0564a !important; }
+
+.last {
+  margin-right: 0; }
+
+.first {
+  margin-left: 0; }

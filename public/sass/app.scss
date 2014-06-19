@@ -1,0 +1,167 @@
+@import "_mixins";
+@import "_constants";
+
+// ---------------------------------------------------------------------------------- GLOBALS
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.app {
+  @extend %main-color;
+  background: #131b1e url(../img/pattern.png) 0 0 repeat;
+  background-size: 34px 20px;
+}
+
+.app-body {
+  padding: 0 !important;
+  margin: 0;
+  &.error {
+    background: rgba($second-color, 0.3);
+  }
+  &.success {
+    background: rgba($third-color, 0.3);
+  }
+}
+
+a, a:visited, .navbar-brand, .btn-navbar, body {
+  @extend %main-color;
+}
+
+.btn:active, .btn:focus, .btn:visited, .btn {
+  outline: none;
+}
+
+// ---------------------------------------------------------------------------------- HEADER
+.navbar-brand {
+  font-size: 1em;
+  i {
+    color: $second-color;
+  }
+  > span {
+    padding: 25px 10px;
+  }
+}
+
+i {
+  margin: 0 5px;
+}
+
+// ---------------------------------------------------------------------------------- FOOTER
+.session {
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 5px 0;
+  #timer {
+    width: 20px;
+  }
+  #sessionname {
+    color: lighten($first-color, 40%);
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+// ---------------------------------------------------------------------------------- LEFT
+.sidebar {
+  padding: 1em;
+  background: white;
+}
+
+.avatar {
+  width: $avatar-size;
+  img {
+    @include border-radius($avatar-size / 2);
+  }
+}
+
+.users {
+  li {
+    padding: 0;
+  }
+  .user-link {
+    padding: 10px 15px;
+    line-height: 2em;
+  }
+  .score {
+    color: $second-color;
+    margin: 0 5px 0 10px;
+    font-weight: 600;
+  }
+  .avatar {
+    width: 20px;
+  }
+}
+
+// ------------------------------------------------------------------------------- OVERLAY
+.changename {
+  $metadata-color: darken($second-color, 20%);
+  position: relative;
+  .form {
+    text-align: left;
+    margin-top: 5em;
+    border: 1px solid $metadata-color;
+    @include border-radius(5px);
+    overflow: hidden;
+    .cancel {
+      position: absolute;
+      margin-top: 5em;
+      color: $first-color;
+      @include border-radius(5px);
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 5px;
+      font-size: 1em;
+      border: none;
+      text-align: center;
+      color: $first-color;
+    }
+    input[type='submit'] {
+      color: white;
+      @include border-radius(0);
+      background-color: $metadata-color;
+      padding: 1em;
+    }
+  }
+  .avatar {
+    position: absolute;
+  }
+  .metadata {
+    text-align: left;
+    margin-left: $avatar-size;
+    padding-left: 10px;
+    color: $first-color;
+    .name {
+      display: block;
+      font-size: 3em;
+      color: $second-color;
+      line-height: 1em;
+    }
+    .score {
+      font-size: 2em;
+      color: $metadata-color;
+    }
+  }
+}
+
+// ------------------------------------------------------------------------ MEDIA QUERIES
+@media (min-width: 480px) {
+  .changename {
+    margin:0 5%;
+  }
+}
+
+@media (min-width: 768px) {
+  .changename {
+    margin:0 15%;
+  }
+}
+
+@media (min-width: 992px) {
+  .changename {
+    margin:0 25%;
+  }
+}
+

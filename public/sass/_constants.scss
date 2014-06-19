@@ -1,0 +1,28 @@
+$first_color: #2770bd;
+$second_color: #f0564a;
+
+$third_color: #e0f263;
+$fourth_color: #a32b22;
+$fifth_color: #2a65a3;
+
+$avatar-size: 100px;
+
+.hide {
+  display: none;
+}
+
+%main-color {
+  color: $first-color !important;
+}
+
+.active {
+  color: $second-color !important;
+}
+
+.last {
+  margin-right: 0;
+}
+
+.first {
+  margin-left: 0;
+}

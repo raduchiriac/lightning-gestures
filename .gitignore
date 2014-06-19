@@ -1,0 +1,6 @@
+node_modules/
+public/js/vendor/
+bower_components/
+test/
+tests/
+slides/

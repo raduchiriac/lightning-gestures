@@ -1,0 +1,28 @@
+{
+  "name": "lightning",
+  "version": "0.1",
+  "authors": [
+    "Radu Chiriac <raduchiriac.me>"
+  ],
+  "description": "meetup angularjs",
+  "main": "app.js",
+  "keywords": [
+    "chat"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/js/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2",
+    "jquery": "1.9",
+    "mobile-angular-ui": "~1.1.0-beta.22",
+    "angular-touch": "~1.2.17"
+  }
+}
