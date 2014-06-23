@@ -5,10 +5,12 @@ A mixing bowl of two repos. Credits to [hugodias](https://github.com/hugodias/an
 Using Node.js, socket.io, AngularJS and 1dollar.js
 
 
-##prerequisites##
-    npm install -g nodemon
-    npm install
-    bower install
+##Prerequisites##
+``npm install -g nodemon`` (optional)
+
+``npm install``
+
+``bower install``
 
 ##Run##
 ``nodemon server.js``

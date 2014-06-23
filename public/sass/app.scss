@@ -9,7 +9,8 @@ body {
 .app {
   @extend %main-color;
   background: #131b1e url(../img/pattern.png) 0 0 repeat;
-  background-size: 34px 20px;
+  @include radial(#0F224C, #0F190D);
+  // background-size: 34px 20px;
 }
 
 .app-body {
@@ -105,9 +106,10 @@ i {
     overflow: hidden;
     .cancel {
       position: absolute;
-      margin-top: 5em;
-      color: $first-color;
+      margin-top: 2em;
+      color: black;
       @include border-radius(5px);
+      border: 1px solid black;
     }
     input {
       display: block;
@@ -149,19 +151,19 @@ i {
 // ------------------------------------------------------------------------ MEDIA QUERIES
 @media (min-width: 480px) {
   .changename {
-    margin:0 5%;
+    margin:-20% 5% 0;
   }
 }
 
 @media (min-width: 768px) {
   .changename {
-    margin:0 15%;
+    margin:-15% 15% 0;
   }
 }
 
 @media (min-width: 992px) {
   .changename {
-    margin:0 25%;
+    margin:-15% 25% 0;
   }
 }
 
