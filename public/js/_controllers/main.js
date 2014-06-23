@@ -3,13 +3,17 @@
 app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
   function($scope, socket, allowDrawing, $filter) {
 
+    var txt_wait = '...',
+      txt_success = 'Bravo : ',
+      txt_error = 'perdu...';
+
     // ---- INIT
     socket.on('init', function(data) {
       $scope.current_username = data.user;
       $scope.name = $scope.current_username.name;
       $scope.users = data.users;
       $scope.score = 0;
-      $scope.currentDrawing = 'wait...';
+      $scope.currentDrawing = txt_wait;
       $scope.messages = [];
     });
 
@@ -63,12 +67,15 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     // ----- CYCLE START
     socket.on('session:start', function(data) {
       $scope.currentDrawing = data.drawing;
+      // WE USE THE TRANSLATION INSTEAD
+      $scope.currentDrawing = data.translation;
       allowDrawing.init();
 
       $('#sessionname').addClass('active');
       $('#timer').val(data.time).trigger("change");
       $('.app-body').removeClass('error success');
     });
+
 
     var retrieveUsername = function() {
       var username;
@@ -165,7 +172,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
           if (allowDrawing.eligible()) {
             // Bring in helper
           } else {
-            $scope.currentDrawing = 'wait...';
+            $scope.currentDrawing = txt_error;
           }
         } else {
           $('.app-body').addClass('success');
@@ -179,7 +186,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
               break;
             }
           }
-          $scope.currentDrawing = 'Bravo: ' + $filter('number')($scope.score, 2);
+          $scope.currentDrawing = txt_success + $filter('number')($scope.score, 2);
           // add the message to our model locally
           // as it was already sent to the other ones
           $scope.messages.push({

@@ -20,7 +20,26 @@ app.get('*', routes.index);
 
 // Start counter
 var sessions = ['triangle', 'x', 'rectangle', 'circle', 'check', 'caret', 'zig-zag', 'arrow', 'left square bracket', 'right square bracket', 'v', 'delete', 'left curly brace', 'right curly brace', 'star', 'pigtail'],
-  stopwatch = new Stopwatch(app.locals.duration, sessions),
+  translated_fr = {
+    'triangle': 'triangle',
+    'x': 'x',
+    'rectangle': 'rectangle',
+    'circle': 'cercle',
+    'check': 'coche',
+    'caret': 'accent circonflexe',
+    'zig-zag': 'zig zag',
+    'arrow': 'flèche',
+    'left square bracket': 'crochet gauche',
+    'right square bracket': 'crochet droite',
+    'v': 'v',
+    'delete': 'effacer',
+    'left curly brace': 'accolade gauche',
+    'right curly brace': 'accolade droite',
+    'star': 'étoile',
+    'pigtail': 'tire bouchon'
+  },
+  translations = translated_fr,
+  stopwatch = new Stopwatch(app.locals.duration, sessions, translations),
   stopwatch_config = require('./models/stopwatch_config')(stopwatch, io);
 
 // Socket.io Communication

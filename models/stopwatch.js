@@ -5,7 +5,7 @@ var util = require('util'),
 // ---------------------------------------------
 // Constructor
 // ---------------------------------------------
-function Stopwatch(_duration, _sessions) {
+function Stopwatch(_duration, _sessions, _translations) {
   if (false === (this instanceof Stopwatch)) {
     return new Stopwatch();
   }
@@ -15,6 +15,7 @@ function Stopwatch(_duration, _sessions) {
   this.second = 1000;
   this.time = _duration;
   this.sessions = _sessions;
+  this.translations = _translations;
 
   this.sessionTimestamp = undefined;
   this.sessionDrawing = undefined;
@@ -47,9 +48,12 @@ Stopwatch.prototype.start = function() {
   this.sessionDrawing = this.sessions[Math.floor(Math.random() * this.sessions.length)];
   this.sessionTimestamp = new Date().getTime();
   this.interval = setInterval(this.onTick, this.second);
+
+  var localsessionDrawing = this.sessionDrawing;
   this.emit('stopwatch:start', {
     'time': this.formatTime(this.duration),
-    'drawing': this.sessionDrawing
+    'drawing': this.sessionDrawing,
+    'translation': this.translations[localsessionDrawing],
   });
 };
 

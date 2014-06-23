@@ -8,14 +8,14 @@ block body
           .avatar
             img(ng-src="http://www.avatarpro.biz/avatar/{{current_username.clid}}?s=300", src="img/profile.png")
           .metadata.pull-left
-            | Your name
+            | Ton pseudo
             span.name {{name}}
             span.score {{score | number:2}}
         .form
           form(ng-submit='changeName()')
-            input(ng-model='newName', placeholder='Enter a new name')
-            input.btn.btn-success(type='submit', value='CHANGE', toggle="off", bubble, target="changename")
-          input.cancel(type='button', value="Cancel", target="changename", toggle="off")
+            input(ng-model='newName', placeholder='Saisir un nouveau pseudo')
+            input.btn.btn-success(type='submit', value='VALIDER', toggle="off", bubble, target="changename")
+          input.cancel(type='button', value="Annuler", target="changename", toggle="off")
 
     .scrollable
       .scrollable-content
@@ -24,12 +24,12 @@ block body
             a.user-link(ng-click="mention(user)")
               .avatar.pull-left
                 img(ng-src="http://www.avatarpro.biz/avatar/{{user.clid}}?s=100", src="img/profile.png")
-              .media-body
+              .media-body(ng-class="{'active':user.name == name}")
                 span.score {{user.score | number:0}}
                 | {{user.name}}
 
   #rightSidebar.sidebar.sidebar-right(toggleable, parent-active-class='sidebar-right-in')
-    img(src="img/unistrokes.gif")
+    img(src="img/unistrokes_fr.gif")
     .row-fluid.hide
       .well.message-spot
         p(ng-repeat='message in messages',
@@ -53,15 +53,15 @@ block body
       .btn-group.pull-left
         .btn.btn-navbar.sidebar-toggle(ng-click="toggle('leftSidebar')")
           i.fa.fa-sort-amount-desc.first
-          | Score
+          | Scores
       .btn-group.pull-right
         .btn.btn-navbar(ng-click="toggle('rightSidebar')")
-          | Cheat-kit
+          | Aide
           i.fa.fa-medkit.last
     .navbar.navbar-app.navbar-absolute-bottom
       .section.container-fluid
         .pull-left
-          a.btn.btn-default(href="#changename", toggle="on") Profile
+          a.btn.btn-default(href="#changename", toggle="on") Profil
         .session
           - jade_duration = data.duration
           input.dial.hide#timer(type="text" data-min="0", data-max="#{jade_duration}", data-displayInput="false", data-width="20", data-height="20", data-readOnly="true", data-fgColor="#2770bd" data-rotation="acw", dial)

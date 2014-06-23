@@ -14,7 +14,8 @@ module.exports = function(stopwatch, io) {
   stopwatch.on('stopwatch:start', function(data) {
     io.sockets.emit('session:start', {
       'time': data.time,
-      'drawing': data.drawing
+      'drawing': data.drawing,
+      'translation': data.translation,
     })
   });
 

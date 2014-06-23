@@ -53,6 +53,9 @@ i {
   margin: 0 auto;
   text-align: center;
   padding: 5px 0;
+  > div:first-child {
+    margin: 0 auto;
+  }
   #timer {
     width: 20px;
   }
