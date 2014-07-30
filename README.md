@@ -15,4 +15,4 @@ Using Node.js, socket.io, AngularJS and 1dollar.js
 ##Run##
 ``nodemon server.js``
 
-###[Demo](bit.do/geste)###
+###[Demo](http://bit.do/geste)###

@@ -186,6 +186,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
               break;
             }
           }
+          // Show possition
           $scope.currentDrawing = txt_success + $filter('number')($scope.score, 2);
           // add the message to our model locally
           // as it was already sent to the other ones
