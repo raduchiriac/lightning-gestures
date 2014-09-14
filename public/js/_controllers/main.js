@@ -4,7 +4,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
   function($scope, socket, allowDrawing, $filter) {
 
     var txt_wait = '...',
-      txt_success = 'Bravo : ',
+      txt_success = 'position : ',
       txt_error = 'perdu...';
 
     // ---- INIT
@@ -187,7 +187,14 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
             }
           }
           // Show possition
-          $scope.currentDrawing = txt_success + $filter('number')($scope.score, 2);
+          var ordoredUsers = $filter('orderBy')($scope.users, '-score');
+          var filterusers = $filter('filter')($scope.users, {
+            name: $scope.name
+          })[0];
+          $scope.position = ordoredUsers.indexOf(filterusers) + 1;
+
+          //$scope.currentDrawing = txt_success + $filter('number')($scope.score, 2);
+          $scope.currentDrawing = txt_success + $scope.position;
           // add the message to our model locally
           // as it was already sent to the other ones
           $scope.messages.push({

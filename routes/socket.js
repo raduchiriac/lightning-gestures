@@ -12,6 +12,7 @@ var userMethods = (function() {
     }
   };
   var setGuestCredentials = function() {
+    // generate a random string CLID rather than using time.
     var name,
       nextUserId = 1,
       user_object = {
@@ -41,7 +42,7 @@ var userMethods = (function() {
     }
   };
   var changeUserName = function(oldName, newName) {
-    // This functin changes the name in the whole array
+    // This functin changes the user's name in the whole array
     var obj = all_user_objects[oldName];
     obj.name = newName;
     all_user_objects[newName] = obj;
@@ -72,9 +73,8 @@ module.exports = function(socket) {
       session = stopwatch.getSession(),
       calculated_score = (stopwatch.getDuration() - (timestamp - session.time)) / 1000;
 
-    user.score += calculated_score;
-
     if (session.drawing.toLowerCase() == data.drawing) {
+      user.score += calculated_score;
       socket.broadcast.emit('send:message', {
         user: user,
         text: data.drawing

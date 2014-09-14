@@ -37,14 +37,11 @@ util.inherits(Stopwatch, events.EventEmitter);
 // Methods
 // ---------------------------------------------
 Stopwatch.prototype.start = function() {
-  if (this.interval) {
+  if (!!this.interval) {
     return;
   }
 
   //console.log('Starting Stopwatch!');
-  // note the use of _.bindAll in the constructor
-  // with bindAll we can pass one of our methods to
-  // setInterval and have it called with the proper 'this' value
   this.sessionDrawing = this.sessions[Math.floor(Math.random() * this.sessions.length)];
   this.sessionTimestamp = new Date().getTime();
   this.interval = setInterval(this.onTick, this.second);
@@ -59,7 +56,7 @@ Stopwatch.prototype.start = function() {
 
 Stopwatch.prototype.stop = function() {
   //console.log('Stopping Stopwatch!');
-  if (this.interval) {
+  if (!!this.interval) {
     clearInterval(this.interval);
     this.interval = undefined;
     this.emit('stopwatch:stop');
@@ -103,7 +100,7 @@ Stopwatch.prototype.formatTime = function(time, everything) {
 
   numSeconds = String(parseInt(remainder / this.second, 10));
 
-  if ( !! everything) {
+  if (!!everything) {
     output = _.map([numHours, numMinutes, numSeconds], function(str) {
       if (str.length === 1) {
         str = "0" + str;

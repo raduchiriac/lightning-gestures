@@ -1,1 +1,1 @@
-web: forever server.js
+web: pm2 server.js

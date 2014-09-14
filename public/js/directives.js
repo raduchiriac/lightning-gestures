@@ -61,13 +61,15 @@ app.directive('draw', ['socket', 'allowDrawing',
       }).on("touchend mouseup", function(e) {
         if (allowDrawing.eligible()) {
           ctx.closePath();
-          if (_points.length >= 10) {
-            var result = _r.Recognize(_points);
+          if (!!_points) {
+            if (_points.length >= 10) {
+              var result = _r.Recognize(_points);
 
-            // CALL THE MESSAGE FUNCTION IN THE SCOPE TO TELL HIM WHAT YOU DID
-            var drawing = result.Name,
-              precision = Math.round(result.Score * 100);
-            scope.sendMessage(drawing, precision);
+              // CALL THE MESSAGE FUNCTION IN THE SCOPE TO TELL HIM WHAT YOU DID
+              var drawing = result.Name,
+                precision = Math.round(result.Score * 100);
+              scope.sendMessage(drawing, precision);
+            }
           }
           _points = false;
           ctx.clearRect(0, 0, canvas.width, canvas.height);
