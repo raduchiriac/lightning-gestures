@@ -6,13 +6,14 @@ Using Node.js, socket.io, AngularJS and 1dollar.js
 
 
 ##Prerequisites##
-``npm install -g nodemon`` (optional)
+```
+## OPTIONAL
+$ npm install -g nodemon bower
+$ npm install
+$ bower install
+```
 
-``npm install``
-
-``bower install``
-
-##Run##
-``nodemon server.js``
+##Test##
+`nodemon server.js`
 
 ###[Demo](http://bit.do/geste)###
