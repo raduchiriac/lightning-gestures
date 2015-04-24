@@ -1,14 +1,14 @@
 'use strict';
 
 app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
-  function($scope, socket, allowDrawing, $filter) {
+  function ($scope, socket, allowDrawing, $filter) {
 
     var txt_wait = '...',
       txt_success = 'position : ',
       txt_error = 'perdu...';
 
     // ---- INIT
-    socket.on('init', function(data) {
+    socket.on('init', function (data) {
       $scope.current_username = data.user;
       $scope.name = $scope.current_username.name;
       $scope.users = data.users;
@@ -18,7 +18,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     });
 
     // ---- SEND MESSAGE
-    socket.on('send:message', function(data) {
+    socket.on('send:message', function (data) {
       $scope.messages.push({
         user: data.user.name,
         text: data.text
@@ -26,17 +26,17 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     });
 
     // ----- CHANGE NAME
-    socket.on('change:name', function(data) {
+    socket.on('change:name', function (data) {
       changeName(data.oldName, data.newName);
     });
 
     // ----- JOIN
-    socket.on('user:join', function(data) {
+    socket.on('user:join', function (data) {
       $scope.users.push(data.data);
     });
 
     // ----- LEFT
-    socket.on('user:left', function(data) {
+    socket.on('user:left', function (data) {
       var user;
       for (var i = 0; i < $scope.users.length; i++) {
         user = $scope.users[i].name;
@@ -47,7 +47,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
       }
     });
 
-    socket.on('set:score', function(data) {
+    socket.on('set:score', function (data) {
       $scope.score = data.score;
       var user;
       for (var i = 0; i < $scope.users.length; i++) {
@@ -60,12 +60,12 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     });
 
     //-----TICK DOM REFRESH
-    socket.on('session:time', function(data) {
+    socket.on('session:time', function (data) {
       $('#timer').val(data.time).trigger("change");
     });
 
     // ----- CYCLE START
-    socket.on('session:start', function(data) {
+    socket.on('session:start', function (data) {
       $scope.currentDrawing = data.drawing;
       // WE USE THE TRANSLATION INSTEAD
       $scope.currentDrawing = data.translation;
@@ -77,7 +77,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     });
 
 
-    var retrieveUsername = function() {
+    var retrieveUsername = function () {
       var username;
       username = (localStorage.getItem("username") || false);
       if (!username) {
@@ -86,14 +86,14 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
       return username;
     };
 
-    var setup_member = function() {
+    var setup_member = function () {
       var username;
       username = retrieveUsername();
       if (username) {
         socket.emit('change:name', {
           name: username,
           score: 0
-        }, function(result) {
+        }, function (result) {
           if (!result) {
             // ...
           } else {
@@ -109,7 +109,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     };
 
     // Check if message has a mention for current user
-    var getMention = function(message) {
+    var getMention = function (message) {
       var text, pattern, mention;
       text = message;
       pattern = /\B\@([\w\-]+)/gim;
@@ -123,12 +123,12 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
       return false;
     };
 
-    $scope.mention = function(name) {
+    $scope.mention = function (name) {
       $scope.message = '@' + name + ' ';
       $('.input-message').focus()
     };
 
-    var changeName = function(oldName, newName, member) {
+    var changeName = function (oldName, newName, member) {
       for (var i = 0; i < $scope.users.length; i++) {
         if ($scope.users[i].name === oldName) {
           $scope.users[i].name = newName;
@@ -141,10 +141,10 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
     };
 
 
-    $scope.changeName = function() {
+    $scope.changeName = function () {
       socket.emit('change:name', {
         name: $scope.newName
-      }, function(result) {
+      }, function (result) {
         if (!result) {
           // ...
         } else {
@@ -156,7 +156,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
       });
     };
 
-    $scope.sendMessage = function(_drawing, _precision) {
+    $scope.sendMessage = function (_drawing, _precision) {
       var drawing = $scope.message || _drawing,
         precision = $scope.precision || _precision;
 
@@ -164,7 +164,7 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
       socket.emit('send:message', {
         drawing: drawing,
         precision: precision
-      }, function(result, message) {
+      }, function (result, message) {
         $('#sessionname').removeClass('active');
         if (!result) {
           $('.app-body').addClass('error');
@@ -192,11 +192,8 @@ app.controller('MainCtrl', ['$scope', 'socket', 'allowDrawing', '$filter',
             name: $scope.name
           })[0];
           $scope.position = ordoredUsers.indexOf(filterusers) + 1;
-
-          //$scope.currentDrawing = txt_success + $filter('number')($scope.score, 2);
-          $scope.currentDrawing = txt_success + $scope.position;
-          // add the message to our model locally
-          // as it was already sent to the other ones
+          var ordinal_text = $scope.position === 1 ? "st" : ($scope.position === 2 ? "nd" : ($scope.position === 3 ? "rd" : "th"));
+          $scope.currentDrawing = txt_success + $scope.position + ordinal_text;
           $scope.messages.push({
             user: $scope.name,
             text: drawing
