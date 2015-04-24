@@ -10,7 +10,7 @@ var express = require('express'),
   });
 
 // Configuration
-var config = require('./config')(app, express);
+var config = require('./config')(app, express, io);
 
 // Routes
 app.locals.duration = 10 * 1000;

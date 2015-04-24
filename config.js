@@ -1,17 +1,17 @@
-module.exports = function(app, express) {
+module.exports = function (app, express, io) {
 
   var config = this;
 
   // Heroku config only
   if (process.env.PORT) {
-    io.configure(function() {
+    io.configure(function () {
       io.set("transports", ["xhr-polling"]);
       io.set("polling duration", 10);
     });
   }
 
   // Express Configuration
-  app.configure(function() {
+  app.configure(function () {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.set('view options', {
@@ -24,7 +24,7 @@ module.exports = function(app, express) {
     app.use(app.router);
   });
 
-  app.configure('development', function() {
+  app.configure('development', function () {
     app.use(express.errorHandler({
       dumpExceptions: true,
       showStack: true
@@ -32,7 +32,7 @@ module.exports = function(app, express) {
     app.locals.pretty = true;
   });
 
-  app.configure('production', function() {
+  app.configure('production', function () {
     app.use(express.errorHandler());
   });
 
