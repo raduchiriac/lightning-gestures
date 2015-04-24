@@ -2,13 +2,13 @@ module.exports = function (app, express, io) {
 
   var config = this;
 
-  console.log(io, process.env.PORT);
   // Heroku config only
   if (process.env.PORT) {
-    io.configure(function () {
+    /* io.configure(function () {
       io.set("transports", ["xhr-polling"]);
       io.set("polling duration", 10);
     });
+    */
   }
 
   // Express Configuration
